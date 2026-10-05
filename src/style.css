@@ -58,11 +58,28 @@ input:focus, select:focus { outline: 2px solid #93c5fd; border-color: #3b82f6; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
   padding: 8px 0;
   border-bottom: 1px dashed #f0f0f0;
+  flex-wrap: wrap;
 }
-.machine-row .m-label small { color: #9ca3af; }
-.machine-row .m-input input { width: 110px; display: inline-block; margin-right: 4px; }
+.machine-row .m-label { font-size: 0.9rem; white-space: nowrap; }
+.machine-row .m-fields { display: flex; gap: 6px; align-items: end; }
+.machine-row .m-field { display: flex; flex-direction: column; align-items: center; }
+.machine-row .m-field small { font-size: 0.7rem; color: #9ca3af; margin-top: 2px; }
+.machine-row .m-field input {
+  display: inline-block;
+  width: 88px;
+  margin-top: 0;
+  padding: 6px 8px;
+  text-align: center;
+}
+.machine-row .m-field.fee input { width: 104px; }
+.machine-row .m-field.fee input.manual {
+  border-color: #f59e0b;
+  background: #fffbeb;
+}
+.machine-row .m-field.fee input.manual::placeholder { color: #f59e0b; }
 
 .result-inline {
   margin-top: 12px;
@@ -100,3 +117,47 @@ th { color: #6b7280; font-weight: 500; }
 
 footer { text-align: center; font-size: 0.8rem; color: #9ca3af; margin-top: 24px; }
 footer code { background: #e5e7eb; padding: 1px 4px; border-radius: 4px; }
+
+/* ═ 按钮 ═ */
+.btn {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-ghost { background: #eef2ff; color: #4f46e5; }
+.btn-ghost:hover { background: #e0e7ff; }
+.btn-ghost { margin-top: 10px; }
+.action-bar { margin-top: 14px; text-align: right; }
+.sheet-actions { margin-bottom: 14px; }
+
+input.manual, select.manual { border-color: #f59e0b; background: #fffbeb; }
+
+/* ═ 明细报价单 ═ */
+.sheet { font-size: 0.9rem; }
+.sheet-head { border-bottom: 2px solid #111827; padding-bottom: 10px; margin-bottom: 16px; }
+.sheet-head h3 { font-size: 1.3rem; color: #111827; }
+.sheet-meta { display: flex; justify-content: space-between; color: #6b7280; font-size: 0.82rem; margin-top: 4px; }
+.sheet h4 { font-size: 0.95rem; color: #374151; margin: 16px 0 8px; }
+.sheet-table { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; }
+.sheet-table th { background: #f8fafc; }
+.sheet-table td.empty { color: #9ca3af; text-align: center; padding: 12px; }
+.sheet-total { margin-top: 16px; background: #111827; color: #f9fafb; border-radius: 10px; padding: 14px 18px; }
+.sheet-total-row { display: flex; justify-content: space-between; padding: 5px 0; }
+.sheet-total-row strong { color: #fbbf24; font-size: 1.1rem; }
+.sheet-note { margin-top: 12px; font-size: 0.78rem; color: #9ca3af; text-align: center; }
+
+/* ═ 打印样式：只打印报价单 ═ */
+@media print {
+  body * { visibility: hidden; }
+  #card-quote-sheet, #card-quote-sheet * { visibility: visible; }
+  #card-quote-sheet { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; }
+  .card-body { padding: 0; }
+  .sheet-actions { display: none; }
+  .btn { display: none !important; }
+}

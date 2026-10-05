@@ -15,16 +15,17 @@
     <p class="subtitle">基于乘数体系的综合报价工具 · 公式库：@usethink/mach-calculators v0.1.4</p>
   </header>
 
-  <!-- �═ 区块一：加工费 �═ -->
+  <!-- ═ 区块一：加工费 ═ -->
   <section class="card" id="card-processing">
-    <h2 onclick="toggleCard('card-processing')">1️⃣ 加工费计算 <span class="hint">（各工序工时 × 设备费率）</span></h2>
+    <h2 onclick="toggleCard('card-processing')">1️⃣ 加工费计算 <span class="hint">（各工序费用可手动修改）</span></h2>
     <div class="card-body">
       <div id="machine-inputs"></div>
       <div class="result-inline">加工费小计：<strong id="processing-fee">0.00</strong> 元</div>
+      <button class="btn btn-ghost" id="btn-reset-fees">↩️ 恢复自动计算（清除手动修改）</button>
     </div>
   </section>
 
-  <!-- �═ 区块二：材料费 �═ -->
+  <!-- ═ 区块二：材料费 ═ -->
   <section class="card" id="card-material">
     <h2 onclick="toggleCard('card-material')">2️⃣ 材料费计算 <span class="hint">（毛坯体积 × 密度 × 单价）</span></h2>
     <div class="card-body">
@@ -98,17 +99,31 @@
         <div class="result-row final"><span>💰 最终报价（含税）</span><span id="r-final">0.00 元</span></div>
         <div class="result-row"><span>📦 单件价格（共 <em id="r-batch-label">100</em> 件）</span><span id="r-unit">0.00 元</span></div>
       </div>
+      <div class="action-bar">
+        <button class="btn btn-primary" id="btn-generate">📄 生成明细报价单</button>
+      </div>
     </div>
   </section>
 
-  <!-- �═ 参考表 �═ -->
+  <!-- ═ 报价单 ═ -->
+  <section class="card" id="card-quote-sheet">
+    <h2 onclick="toggleCard('card-quote-sheet')">🧾 明细报价单 <span class="hint">（点击展开/收起）</span></h2>
+    <div class="card-body">
+      <div class="sheet-actions">
+        <button class="btn btn-primary" id="btn-print">🖨️ 打印 / 存为 PDF</button>
+      </div>
+      <div id="quote-sheet"></div>
+    </div>
+  </section>
+
+  <!-- ═ 参考表 ═ -->
   <section class="card" id="card-rates">
     <h2 onclick="toggleCard('card-rates')">📋 设备费率参考表 <span class="hint">（点击展开/收起）</span></h2>
     <div class="card-body">
       <table id="rate-table">
         <thead><tr><th>设备</th><th>费率（元/小时）</th><th>常见加工件</th></tr></thead>
         <tbody></tbody>
-          </table>
+      </table>
     </div>
   </section>
 
