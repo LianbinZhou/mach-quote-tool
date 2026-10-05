@@ -1,8 +1,8 @@
 # 依赖
 node_modules/
 
-# 构建产物
-dist/
+# 本项目的构建产物（仅根目录；vendor/ 里的 dist 是公式库自带，需保留）
+/dist/
 
 # 备份与临时文件
 *.bak-*
