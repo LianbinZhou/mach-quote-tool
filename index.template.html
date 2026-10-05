@@ -17,9 +17,12 @@
 
   <!-- ═ 区块一：加工费 ═ -->
   <section class="card" id="card-processing">
-    <h2 onclick="toggleCard('card-processing')">1️⃣ 加工费计算 <span class="hint">（各工序费用可手动修改）</span></h2>
+    <h2 onclick="toggleCard('card-processing')">1️⃣ 加工费计算 <span class="hint">（标准工序 + 自定义工序，费用均可改）</span></h2>
     <div class="card-body">
+      <div class="section-title">标准工序</div>
       <div id="machine-inputs"></div>
+      <div class="section-title">自定义工序 <button class="btn btn-ghost btn-add" id="btn-add-process">➕ 添加一行</button></div>
+      <div id="custom-process-inputs"></div>
       <div class="result-inline">加工费小计：<strong id="processing-fee">0.00</strong> 元</div>
       <button class="btn btn-ghost" id="btn-reset-fees">↩️ 恢复自动计算（清除手动修改）</button>
     </div>
@@ -27,20 +30,25 @@
 
   <!-- ═ 区块二：材料费 ═ -->
   <section class="card" id="card-material">
-    <h2 onclick="toggleCard('card-material')">2️⃣ 材料费计算 <span class="hint">（毛坯体积 × 密度 × 单价）</span></h2>
+    <h2 onclick="toggleCard('card-material')">2️⃣ 材料费计算 <span class="hint">（类型带基准价，可手改价格/密度/牌号）</span></h2>
     <div class="card-body">
       <div class="form-grid">
         <label>材料类型
           <select id="material-type">
-            <option value="steel">碳钢（5 元/kg）</option>
-            <option value="stainless_steel">不锈钢（15 元/kg）</option>
-            <option value="aluminum">铝合金（18 元/kg）</option>
-            <option value="brass">黄铜（45 元/kg）</option>
-            <option value="copper">紫铜（65 元/kg）</option>
-            <option value="titanium">钛合金（180 元/kg）</option>
-            <option value="tungsten_carbide">钨钢（280 元/kg）</option>
+            <option value="steel">碳钢</option>
+            <option value="stainless_steel">不锈钢</option>
+            <option value="aluminum">铝合金</option>
+            <option value="brass">黄铜</option>
+            <option value="copper">紫铜</option>
+            <option value="titanium">钛合金</option>
+            <option value="tungsten_carbide">钨钢</option>
           </select>
         </label>
+        <label>材料牌号 <small class="hint-sm">（自填，如 7075 / 6063 / 45# / 304）</small>
+          <input type="text" id="material-grade" placeholder="如 7075" value="">
+        </label>
+        <label>材料单价（元/kg）<input type="number" id="material-price" min="0" step="0.01"></label>
+        <label>材料密度（g/cm³）<input type="number" id="material-density" min="0" step="0.01"></label>
         <label>毛坯形状
           <select id="blank-shape">
             <option value="square">方料</option>
@@ -58,37 +66,41 @@
 
   <!-- ═ 区块三：综合报价 ═ -->
   <section class="card" id="card-quote">
-    <h2 onclick="toggleCard('card-quote')">3️⃣ 综合报价 <span class="hint">（(加工费+材料费) × 乘数 × (1+利润) × (1+税)）</span></h2>
+    <h2 onclick="toggleCard('card-quote')">3️⃣ 综合报价 <span class="hint">（三档系数可改，默认带出基准值）</span></h2>
     <div class="card-body">
       <div class="form-grid">
         <label>加工费（元）<input type="number" id="q-processing" min="0" step="0.01" value="0"></label>
         <label>材料费（元）<input type="number" id="q-material" min="0" step="0.01" value="0"></label>
         <label>复杂程度
           <select id="q-complexity">
-            <option value="simple">简单（单一工序，无复杂形状）×1.0</option>
-            <option value="medium" selected>中等（多工序，一般形状）×1.2</option>
-            <option value="complex">复杂（多工序+复杂曲面）×1.5</option>
-            <option value="ultra_complex">超复杂（精密模具/特殊结构）×2.0</option>
+            <option value="simple">简单（单一工序，无复杂形状）</option>
+            <option value="medium" selected>中等（多工序，一般形状）</option>
+            <option value="complex">复杂（多工序+复杂曲面）</option>
+            <option value="ultra_complex">超复杂（精密模具/特殊结构）</option>
           </select>
         </label>
+        <label>K1 系数 <input type="number" id="q-k1" min="0" step="0.01" value="1.2"></label>
         <label>精度等级
           <select id="q-precision">
-            <option value="general">一般精度（IT12-IT13）×1.0</option>
-            <option value="medium">中等精度（IT11-IT12）×1.15</option>
-            <option value="high">高精度（IT9-IT10）×1.35</option>
-            <option value="ultra_high">超高精度（IT6-IT8）×1.6</option>
+            <option value="general">一般精度（IT12-IT13）</option>
+            <option value="medium">中等精度（IT11-IT12）</option>
+            <option value="high">高精度（IT9-IT10）</option>
+            <option value="ultra_high">超高精度（IT6-IT8）</option>
           </select>
         </label>
+        <label>K2 系数 <input type="number" id="q-k2" min="0" step="0.01" value="1.0"></label>
         <label>表面粗糙度
           <select id="q-surface">
-            <option value="general">一般（Ra 12.5-25）×1.0</option>
-            <option value="medium">中等（Ra 6.3-12.5）×1.1</option>
-            <option value="fine">细（Ra 3.2-6.3）×1.25</option>
-            <option value="ultra_fine">超细（Ra 0.8-3.2）×1.5</option>
-            <option value="mirror">镜面（Ra < 0.8）×1.8</option>
+            <option value="general">一般（Ra 12.5-25）</option>
+            <option value="medium">中等（Ra 6.3-12.5）</option>
+            <option value="fine">细（Ra 3.2-6.3）</option>
+            <option value="ultra_fine">超细（Ra 0.8-3.2）</option>
+            <option value="mirror">镜面（Ra < 0.8）</option>
           </select>
         </label>
+        <label>K3 系数 <input type="number" id="q-k3" min="0" step="0.01" value="1.0"></label>
         <label>批量（件）<input type="number" id="q-batch" min="1" step="1" value="100"></label>
+        <label>批量系数 K4 <input type="number" id="q-k4" min="0" step="0.01" value="1.2"></label>
         <label>利润率（%）<input type="number" id="q-profit" min="0" max="100" step="0.1" value="20"></label>
         <label>税率（%）<input type="number" id="q-tax" min="0" max="100" step="0.1" value="13"></label>
       </div>
@@ -129,7 +141,7 @@
 
   <footer>
     <p>💡 本工具基于 <code>@usethink/mach-calculators</code> 公式库构建，公式源自台湾风格《加工件费用计算表》乘数体系。<br>
-    计算结果仅供参考，实际报价请结合具体情况判断。</p>
+    材料价格、密度、系数均可手动调整，计算结果仅供参考，实际报价请结合具体情况判断。</p>
   </footer>
 </div>
 <script>

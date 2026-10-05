@@ -152,6 +152,43 @@ input.manual, select.manual { border-color: #f59e0b; background: #fffbeb; }
 .sheet-total-row strong { color: #fbbf24; font-size: 1.1rem; }
 .sheet-note { margin-top: 12px; font-size: 0.78rem; color: #9ca3af; text-align: center; }
 
+/* ═ 分区标题 ═ */
+.section-title {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin: 14px 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ═ 小尺寸按钮 ═ */
+.btn-add { padding: 5px 12px; font-size: 0.82rem; margin: 0; }
+.btn-del {
+  padding: 4px 8px;
+  font-size: 0.82rem;
+  background: #fee2e2;
+  color: #dc2626;
+  margin: 0;
+}
+.btn-del:hover { background: #fecaca; }
+
+/* ═ 自定义工序行 ═ */
+.custom-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px dashed #f0f0f0;
+}
+.custom-row input[type="text"] { flex: 1; width: auto; margin: 0; }
+.custom-row input[type="number"] { width: 130px; margin: 0; }
+.empty-hint { color: #9ca3af; font-size: 0.82rem; padding: 8px 0; }
+
+/* ═ 材料牌号小提示 ═ */
+.hint-sm { font-size: 0.72rem; color: #9ca3af; font-weight: normal; display: block; margin-top: 2px; }
+
 /* ═ 打印样式：只打印报价单 ═ */
 @media print {
   body * { visibility: hidden; }
