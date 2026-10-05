@@ -1,0 +1,21 @@
+{
+  "name": "mach-quote-tool",
+  "version": "0.1.0",
+  "description": "机加工报价计算器：基于 @usethink/mach-calculators 公式库的网页版小工具",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "node build.mjs"
+  },
+  "license": "MIT",
+  "keywords": [
+    "machining",
+    "cost-estimation",
+    "quote-calculator",
+    "cnc"
+  ],
+  "author": "Lianbin Zhou",
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

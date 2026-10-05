@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>机加工报价计算器</title>
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>⚙️ 机加工报价计算器</h1>
+    <p class="subtitle">基于乘数体系的综合报价工具 · 公式库：@usethink/mach-calculators v0.1.4</p>
+  </header>
+
+  <!-- �═ 区块一：加工费 �═ -->
+  <section class="card" id="card-processing">
+    <h2 onclick="toggleCard('card-processing')">1️⃣ 加工费计算 <span class="hint">（各工序工时 × 设备费率）</span></h2>
+    <div class="card-body">
+      <div id="machine-inputs"></div>
+      <div class="result-inline">加工费小计：<strong id="processing-fee">0.00</strong> 元</div>
+    </div>
+  </section>
+
+  <!-- �═ 区块二：材料费 �═ -->
+  <section class="card" id="card-material">
+    <h2 onclick="toggleCard('card-material')">2️⃣ 材料费计算 <span class="hint">（毛坯体积 × 密度 × 单价）</span></h2>
+    <div class="card-body">
+      <div class="form-grid">
+        <label>材料类型
+          <select id="material-type">
+            <option value="steel">碳钢（5 元/kg）</option>
+            <option value="stainless_steel">不锈钢（15 元/kg）</option>
+            <option value="aluminum">铝合金（18 元/kg）</option>
+            <option value="brass">黄铜（45 元/kg）</option>
+            <option value="copper">紫铜（65 元/kg）</option>
+            <option value="titanium">钛合金（180 元/kg）</option>
+            <option value="tungsten_carbide">钨钢（280 元/kg）</option>
+          </select>
+        </label>
+        <label>毛坯形状
+          <select id="blank-shape">
+            <option value="square">方料</option>
+            <option value="round">圆棒</option>
+            <option value="tube">圆管</option>
+          </select>
+        </label>
+      </div>
+      <div class="form-grid" id="dimension-inputs"><!-- JS 动态生成 --></div>
+      <div class="result-inline">
+        毛坯重量：<strong id="material-weight">0</strong> kg ｜ 材料费：<strong id="material-fee">0.00</strong> 元
+      </div>
+    </div>
+  </section>
+
+  <!-- ═ 区块三：综合报价 ═ -->
+  <section class="card" id="card-quote">
+    <h2 onclick="toggleCard('card-quote')">3️⃣ 综合报价 <span class="hint">（(加工费+材料费) × 乘数 × (1+利润) × (1+税)）</span></h2>
+    <div class="card-body">
+      <div class="form-grid">
+        <label>加工费（元）<input type="number" id="q-processing" min="0" step="0.01" value="0"></label>
+        <label>材料费（元）<input type="number" id="q-material" min="0" step="0.01" value="0"></label>
+        <label>复杂程度
+          <select id="q-complexity">
+            <option value="simple">简单（单一工序，无复杂形状）×1.0</option>
+            <option value="medium" selected>中等（多工序，一般形状）×1.2</option>
+            <option value="complex">复杂（多工序+复杂曲面）×1.5</option>
+            <option value="ultra_complex">超复杂（精密模具/特殊结构）×2.0</option>
+          </select>
+        </label>
+        <label>精度等级
+          <select id="q-precision">
+            <option value="general">一般精度（IT12-IT13）×1.0</option>
+            <option value="medium">中等精度（IT11-IT12）×1.15</option>
+            <option value="high">高精度（IT9-IT10）×1.35</option>
+            <option value="ultra_high">超高精度（IT6-IT8）×1.6</option>
+          </select>
+        </label>
+        <label>表面粗糙度
+          <select id="q-surface">
+            <option value="general">一般（Ra 12.5-25）×1.0</option>
+            <option value="medium">中等（Ra 6.3-12.5）×1.1</option>
+            <option value="fine">细（Ra 3.2-6.3）×1.25</option>
+            <option value="ultra_fine">超细（Ra 0.8-3.2）×1.5</option>
+            <option value="mirror">镜面（Ra < 0.8）×1.8</option>
+          </select>
+        </label>
+        <label>批量（件）<input type="number" id="q-batch" min="1" step="1" value="100"></label>
+        <label>利润率（%）<input type="number" id="q-profit" min="0" max="100" step="0.1" value="20"></label>
+        <label>税率（%）<input type="number" id="q-tax" min="0" max="100" step="0.1" value="13"></label>
+      </div>
+      <div class="quote-result">
+        <div class="result-row"><span>小计（加工+材料）</span><span id="r-subtotal">0.00 元</span></div>
+        <div class="result-row"><span>综合乘数 K1×K2×K3×K4</span><span id="r-factor">× 1.000</span></div>
+        <div class="result-row"><span>调整后费用</span><span id="r-adjusted">0.00 元</span></div>
+        <div class="result-row final"><span>💰 最终报价（含税）</span><span id="r-final">0.00 元</span></div>
+        <div class="result-row"><span>📦 单件价格（共 <em id="r-batch-label">100</em> 件）</span><span id="r-unit">0.00 元</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- �═ 参考表 �═ -->
+  <section class="card" id="card-rates">
+    <h2 onclick="toggleCard('card-rates')">📋 设备费率参考表 <span class="hint">（点击展开/收起）</span></h2>
+    <div class="card-body">
+      <table id="rate-table">
+        <thead><tr><th>设备</th><th>费率（元/小时）</th><th>常见加工件</th></tr></thead>
+        <tbody></tbody>
+          </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>💡 本工具基于 <code>@usethink/mach-calculators</code> 公式库构建，公式源自台湾风格《加工件费用计算表》乘数体系。<br>
+    计算结果仅供参考，实际报价请结合具体情况判断。</p>
+  </footer>
+</div>
+<script>
+//__JS__
+</script>
+</body>
+</html>

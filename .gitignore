@@ -1,0 +1,11 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+
+# 备份与临时文件
+*.bak-*
+*.log
+_*.txt
+.DS_Store
