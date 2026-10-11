@@ -1,32 +1,42 @@
 # Mach Quote Tool（机加工报价计算器）
 
-⚠️ 注意：`vendor/mach-calculators` 依赖未声明开源协议（npm 上 license 字段为空），**仅供本地使用，请勿将该依赖部分再分发**。本仓库自身代码为 MIT 协议。
+给机加工行业（CNC 车/铣、线割、放电、磨床等）用的**快速报价网页工具**，把 `@usethink/mach-calculators` 公式库封装成单文件网页，构建后**双击就能用**。
+
+本仓库只包含本项目自己的代码（MIT 协议）。第三方公式库通过 npm 安装，版权归其原作者。
+
+## ⚠️ 先看这里：本仓库不含构建产物
+
+`dist/index.html`（可双击运行的成品）**没有提交进仓库**，需要你自己构建一次：
+
+```bash
+git clone https://github.com/LianbinZhou/mach-quote-tool.git
+cd mach-quote-tool
+npm install      # 安装依赖（含公式库与构建工具）
+npm run build    # 生成 dist/index.html
+```
+
+构建完成后，**双击 `dist/index.html`** 即可在浏览器里使用——之后无需联网、无需服务器。
+
+> 需要先装好 [Node.js](https://nodejs.org/)（v18 以上）。构建只需做一次，日常使用不依赖 Node。
 
 ## 这是什么
 
-把 `@usethink/mach-calculators` 公式库封装成**双击就能用的网页工具**，为机加工（CNC 车/铣、线割、放电、磨床等）行业做快速报价：
+面向机加工报价的乘数体系计算器，功能包括：
 
 1. **加工费计算**：各工序工时 × 设备费率，支持「➕ 添加一行」自定义工序（外包、热处理等），所有费用可手动改
 2. **材料费计算**：毛坯（方料/圆棒/圆管）体积 × 密度 × 单价；材料类型带出基准价，但**单价、密度、牌号均可手改**（如 7075 / 6063 / 45# / 304）
 3. **综合报价**：(加工费 + 材料费) × K1 × K2 × K3 × K4 × (1 + 利润率) × (1 + 税率)；复杂程度、精度、表面、批量系数**默认带出基准值，也可手改**
 4. **明细报价单**：一键生成含工序/材料/系数全程明细的报价单，支持打印或存为 PDF
 
-> 设计原则：库提供的价格与系数只作为**基准参考**，任何一项都允许按实际行情覆盖。被手动修改的输入框会高亮提示。
+> 设计原则：公式库提供的价格与系数只作为**基准参考**，任何一项都允许按实际行情覆盖。被手动修改的输入框会高亮提示。
 
-## 怎么用
-
-### 普通用户
-
-直接双击仓库里的 `dist/index.html`，浏览器打开即用，**无需联网、无需安装任何东西**。
-（`dist/index.html` 已随仓库提交，不需要自行构建。）
-
-### 开发者
+## 命令速查
 
 ```bash
-npm install          # 安装构建/测试工具（esbuild、jsdom）
-npm run build        # 构建，产物在 dist/index.html
-npm test             # 纯函数单测：断言与公式库逐分一致
-npm run test:dom     # 浏览器级冒烟测试（先构建，再用 jsdom 跑交互）
+npm install          # 安装依赖（首次必做）
+npm run build        # 构建，产出 dist/index.html ← 双击这个文件使用
+npm test             # 单元测试（10 例，断言与公式库计算结果逐分一致）
+npm run test:dom     # 浏览器级冒烟测试（7 例，用 jsdom 真实模拟交互）
 ```
 
 ## 目录结构
@@ -38,10 +48,9 @@ npm run test:dom     # 浏览器级冒烟测试（先构建，再用 jsdom 跑�
 | `src/style.css` | 样式 |
 | `index.template.html` | HTML 模板（构建时注入 JS/CSS） |
 | `build.mjs` | 构建脚本：esbuild 打包 + 内联成单文件 HTML |
-| `test/calc.test.mjs` | 纯函数单测（对照公式库，防计算结果漂移） |
+| `test/calc.test.mjs` | 单元测试（对照公式库，防止计算结果漂移） |
 | `scripts/smoke-test.mjs` | jsdom 浏览器级冒烟测试（折叠/转义/重置等交互） |
-| `vendor/mach-calculators/` | 公式库完整拷贝（勿动，勿再分发） |
-| `dist/` | 构建产物（已提交，可直接双击使用） |
+| `dist/` | 构建产物目录（运行 `npm run build` 后生成，不入版本库） |
 
 ## 公式来源
 
@@ -55,6 +64,9 @@ K3 = 表面粗糙度系数（1.0 ~ 1.8）
 K4 = 批量系数（0.85 ~ 2.0）
 ```
 
-## License
+## 依赖与 License
 
-本项目自身代码：MIT（见 LICENSE）。`vendor/` 内第三方依赖版权归其原作者。
+- **本项目自身代码**：MIT（见 [LICENSE](LICENSE)）
+- **第三方依赖**：[`@usethink/mach-calculators`](https://www.npmjs.com/package/@usethink/mach-calculators)（加工报价公式库，通过 npm 安装，版权归原作者）、`esbuild`、`jsdom`（构建与测试工具）
+
+由于该公式库未在 npm 上声明开源协议，本仓库**不再分发其源码副本**，仅通过 `npm install` 引用。构建产物中会包含该库的代码，请自行确认使用场景是否合适。

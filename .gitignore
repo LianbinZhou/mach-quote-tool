@@ -1,9 +1,13 @@
 # 依赖
 node_modules/
 
-# 本项目的构建产物。为了让普通用户 clone 后能直接双击 dist/index.html，
-# dist 不再被忽略（README 承诺「无需安装任何东西」）。构建后请一并提交。
-# （vendor/ 里的 dist 是公式库自带，同样需保留）
+# 构建产物（clone 后请运行 npm run build 生成）
+/dist/
+
+# 第三方公式库的本地副本
+# 早已改为 npm 正式依赖（见 package.json 的 dependencies），
+# 本地保留副本仅用于离线开发，不需要也不应该提交。
+/vendor/
 
 # 备份与临时文件
 *.bak-*

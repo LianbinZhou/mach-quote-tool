@@ -20,7 +20,7 @@ import {
   SURFACE_FACTOR,
   MATERIAL_DENSITY,
   MATERIAL_UNIT_PRICE,
-} from '../vendor/mach-calculators/dist/index.js';
+} from '@usethink/mach-calculators';
 
 import {
   round,

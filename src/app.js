@@ -12,7 +12,7 @@ import {
   COMPLEXITY_FACTOR,
   PRECISION_FACTOR,
   SURFACE_FACTOR,
-} from '../vendor/mach-calculators/dist/index.js';
+} from '@usethink/mach-calculators';
 import {
   batchFactorFor,
   computeQuote,

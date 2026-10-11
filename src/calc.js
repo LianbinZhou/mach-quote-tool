@@ -15,7 +15,7 @@ import {
   calculateMaterialFee,
   MATERIAL_DENSITY,
   BATCH_FACTOR,
-} from '../vendor/mach-calculators/dist/index.js';
+} from '@usethink/mach-calculators';
 
 /** 四舍五入到指定小数位；非法输入按 0 处理。 */
 export function round(n, digits = 2) {

@@ -2,6 +2,10 @@
 
 > 本报告记录对 `mach-quote-tool` 的一次代码审查、修复过程、验证证据、决策取舍，以及留给复审的开放问题。
 > 生成时间：2026-10-11　｜　基线版本：git `74290b4`　｜　环境：Windows + Git Bash，Node v24.21.0
+>
+> **后续变更说明**：本报告之后，公式库已从本地 `vendor/` 副本改为 **npm 正式依赖**（`@usethink/mach-calculators`），
+> `vendor/` 与 `dist/` 均已移出版本库。因此报告中凡是提到 `vendor/...` 路径的内容，反映的是**审查当时的基线状态**，
+> 当前实现请以 `package.json` 与 `src/calc.js` 为准。
 
 ---
 
