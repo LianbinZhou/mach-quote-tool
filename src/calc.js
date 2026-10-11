@@ -2,7 +2,7 @@
  * 纯计算模块 —— 与 DOM / UI 解耦，便于单元测试。
  *
  * 设计原则：
- * 1. **默认路径直接调用 vendor 公式库** `@usethink/mach-calculators`，
+ * 1. **默认路径直接调用公式库** `@usethink/mach-calculators`（npm 依赖），
  *    保证与公式库同源；将来公式库更新，本工具自动跟随，不会算出差值。
  * 2. 用户手改单价 / 密度 / K 系数时，用「库基准 + 覆盖」的方式计算。
  *    原因：公式库的 `calculateMaterialWeight` / `calculateMaterialFee` 只接受

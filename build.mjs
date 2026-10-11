@@ -1,5 +1,5 @@
 /**
- * 构建脚本：把 src/app.js + vendor 公式库打包成单文件 HTML。
+ * 构建脚本：把 src/app.js + 公式库依赖打包成单文件 HTML。
  * 用法：node build.mjs
  * 产物：dist/index.html（双击即可在浏览器打开，无需服务器）
  */

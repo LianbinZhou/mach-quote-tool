@@ -1,6 +1,6 @@
 /**
  * 机加工报价计算器 - 应用逻辑（状态 + 渲染 + 事件绑定）
- * 纯计算集中在 src/calc.js；公式默认值来自 vendor/@usethink/mach-calculators。
+ * 纯计算集中在 src/calc.js；公式默认值来自 npm 依赖 @usethink/mach-calculators。
  *
  * 说明：材料价格/密度、复杂/精度/表面系数、批量系数均可手动修改。
  * 库提供的数值仅作为「基准值」，用户改后以手改值为准。

@@ -5,8 +5,7 @@ node_modules/
 /dist/
 
 # 第三方公式库的本地副本
-# 早已改为 npm 正式依赖（见 package.json 的 dependencies），
-# 本地保留副本仅用于离线开发，不需要也不应该提交。
+# 早已改为 npm 正式依赖（见 package.json 的 dependencies），此规则用于防止误提交
 /vendor/
 
 # 备份与临时文件
