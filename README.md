@@ -8,7 +8,7 @@
 
 ### 方式一：直接下载成品（普通用户推荐）
 
-前往 **[Releases 页面](https://github.com/LianbinZhou/mach-quote-tool/releases/latest)**，下载附件 `mach-quote-tool-v0.1.0.html`，然后**双击用浏览器打开**即可。
+前往 **[Releases 页面](https://github.com/LianbinZhou/mach-quote-tool/releases/latest)**，下载该版本 **Assets** 里的 `.html` 附件（文件名形如 `mach-quote-tool-v0.x.x.html`），然后**双击用浏览器打开**即可。
 
 不需要安装 Node.js、不需要联网、不需要服务器——整个工具就是这一个文件。
 
