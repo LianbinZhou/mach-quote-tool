@@ -1,12 +1,20 @@
 # Mach Quote Tool（机加工报价计算器）
 
-给机加工行业（CNC 车/铣、线割、放电、磨床等）用的**快速报价网页工具**，把 `@usethink/mach-calculators` 公式库封装成单文件网页，构建后**双击就能用**。
+给机加工行业（CNC 车/铣、线割、放电、磨床等）用的**快速报价网页工具**——把 `@usethink/mach-calculators` 公式库封装成单文件网页，**双击就能用**。
 
-本仓库只包含本项目自己的代码（MIT 协议）。第三方公式库通过 npm 安装，版权归其原作者。
+本项目自身代码为 MIT 协议；依赖的第三方公式库版权归原作者（**授权状况请注意阅读文末说明**）。
 
-## ⚠️ 先看这里：本仓库不含构建产物
+## 怎么开始用
 
-`dist/index.html`（可双击运行的成品）**没有提交进仓库**，需要你自己构建一次：
+### 方式一：直接下载成品（普通用户推荐）
+
+前往 **[Releases 页面](https://github.com/LianbinZhou/mach-quote-tool/releases/latest)**，下载附件 `mach-quote-tool-v0.1.0.html`，然后**双击用浏览器打开**即可。
+
+不需要安装 Node.js、不需要联网、不需要服务器——整个工具就是这一个文件。
+
+> 💡 下载后建议把文件名改成「机加工报价计算器.html」，更方便识别和转发。
+
+### 方式二：从源码自己构建
 
 ```bash
 git clone https://github.com/LianbinZhou/mach-quote-tool.git
@@ -15,7 +23,7 @@ npm install      # 安装依赖（含公式库与构建工具）
 npm run build    # 生成 dist/index.html
 ```
 
-构建完成后，**双击 `dist/index.html`** 即可在浏览器里使用——之后无需联网、无需服务器。
+产物 `dist/index.html` 双击即可使用。
 
 > 需要先装好 [Node.js](https://nodejs.org/)（v18 以上）。构建只需做一次，日常使用不依赖 Node。
 
@@ -29,6 +37,8 @@ npm run build    # 生成 dist/index.html
 4. **明细报价单**：一键生成含工序/材料/系数全程明细的报价单，支持打印或存为 PDF
 
 > 设计原则：公式库提供的价格与系数只作为**基准参考**，任何一项都允许按实际行情覆盖。被手动修改的输入框会高亮提示。
+>
+> ⚠️ **本工具不保存数据**：刷新或关闭页面后填写的内容会清空，算完请先「打印 / 存为 PDF」存档。
 
 ## 命令速查
 
@@ -67,6 +77,24 @@ K4 = 批量系数（0.85 ~ 2.0）
 ## 依赖与 License
 
 - **本项目自身代码**：MIT（见 [LICENSE](LICENSE)）
-- **第三方依赖**：[`@usethink/mach-calculators`](https://www.npmjs.com/package/@usethink/mach-calculators)（加工报价公式库，通过 npm 安装，版权归原作者）、`esbuild`、`jsdom`（构建与测试工具）
+- **第三方依赖**：
+  - [`@usethink/mach-calculators`](https://www.npmjs.com/package/@usethink/mach-calculators)（加工报价公式库，版权归原作者）
+  - `esbuild`、`jsdom`（构建与测试工具）
 
-由于该公式库未在 npm 上声明开源协议，本仓库**不再分发其源码副本**，仅通过 `npm install` 引用。构建产物中会包含该库的代码，请自行确认使用场景是否合适。
+### ⚠️ 关于公式库的授权状况（请留意）
+
+本项目依赖的 `@usethink/mach-calculators` **没有声明任何开源协议**（npm 上的 license 字段为空）。按著作权惯例，这通常意味着**作者保留所有权利**。
+
+本项目对此的实际情况，如实说明如下：
+
+- 本仓库**不包含**该库的源码副本——`vendor/` 与 `dist/` 都已移出版本控制，构建时通过 `npm install` 从 npm 官方渠道获取；
+- 但 **Releases 中提供的 `dist/index.html` 里包含该库编译后的代码**（打包产物）。公开发布这个文件，严格来说**同样构成对该库的再分发**；
+- 也就是说：**这个问题并未完全解决**，只是把分发位置从 git 仓库换到了 Releases。
+
+**给使用者的建议**：
+
+- 个人、学习、内部试用等场景，正常使用即可；
+- 若要用于正式项目或商业场合，建议先与库作者确认授权，或改为**自行构建、不依赖本项目的成品文件**；
+- 若库作者后续补充了授权协议，此限制即可解除。
+
+**给库作者**：如果你看到这里，希望能为 `@usethink/mach-calculators` 补一个 LICENSE —— 这个小工具的存在完全归功于你的公式库。
