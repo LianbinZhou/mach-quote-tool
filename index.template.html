@@ -17,7 +17,7 @@
 
   <!-- ═ 区块一：加工费 ═ -->
   <section class="card" id="card-processing">
-    <h2 onclick="toggleCard('card-processing')">1️⃣ 加工费计算 <span class="hint">（标准工序 + 自定义工序，费用均可改）</span></h2>
+    <h2 class="card-toggle" data-target="card-processing" role="button" tabindex="0">1️⃣ 加工费计算 <span class="hint">（标准工序 + 自定义工序，费用均可改）</span></h2>
     <div class="card-body">
       <div class="section-title">标准工序</div>
       <div id="machine-inputs"></div>
@@ -30,7 +30,7 @@
 
   <!-- ═ 区块二：材料费 ═ -->
   <section class="card" id="card-material">
-    <h2 onclick="toggleCard('card-material')">2️⃣ 材料费计算 <span class="hint">（类型带基准价，可手改价格/密度/牌号）</span></h2>
+    <h2 class="card-toggle" data-target="card-material" role="button" tabindex="0">2️⃣ 材料费计算 <span class="hint">（类型带基准价，可手改价格/密度/牌号）</span></h2>
     <div class="card-body">
       <div class="form-grid">
         <label>材料类型
@@ -66,7 +66,7 @@
 
   <!-- ═ 区块三：综合报价 ═ -->
   <section class="card" id="card-quote">
-    <h2 onclick="toggleCard('card-quote')">3️⃣ 综合报价 <span class="hint">（三档系数可改，默认带出基准值）</span></h2>
+    <h2 class="card-toggle" data-target="card-quote" role="button" tabindex="0">3️⃣ 综合报价 <span class="hint">（三档系数可改，默认带出基准值）</span></h2>
     <div class="card-body">
       <div class="form-grid">
         <label>加工费（元）<input type="number" id="q-processing" min="0" step="0.01" value="0"></label>
@@ -112,6 +112,7 @@
         <div class="result-row"><span>📦 单件价格（共 <em id="r-batch-label">100</em> 件）</span><span id="r-unit">0.00 元</span></div>
       </div>
       <div class="action-bar">
+        <button class="btn btn-ghost" id="btn-reset-k">↩️ 恢复默认系数</button>
         <button class="btn btn-primary" id="btn-generate">📄 生成明细报价单</button>
       </div>
     </div>
@@ -119,7 +120,7 @@
 
   <!-- ═ 报价单 ═ -->
   <section class="card" id="card-quote-sheet">
-    <h2 onclick="toggleCard('card-quote-sheet')">🧾 明细报价单 <span class="hint">（点击展开/收起）</span></h2>
+    <h2 class="card-toggle" data-target="card-quote-sheet" role="button" tabindex="0">🧾 明细报价单 <span class="hint">（点击展开/收起）</span></h2>
     <div class="card-body">
       <div class="sheet-actions">
         <button class="btn btn-primary" id="btn-print">🖨️ 打印 / 存为 PDF</button>
@@ -130,7 +131,7 @@
 
   <!-- ═ 参考表 ═ -->
   <section class="card" id="card-rates">
-    <h2 onclick="toggleCard('card-rates')">📋 设备费率参考表 <span class="hint">（点击展开/收起）</span></h2>
+    <h2 class="card-toggle" data-target="card-rates" role="button" tabindex="0">📋 设备费率参考表 <span class="hint">（点击展开/收起）</span></h2>
     <div class="card-body">
       <table id="rate-table">
         <thead><tr><th>设备</th><th>费率（元/小时）</th><th>常见加工件</th></tr></thead>

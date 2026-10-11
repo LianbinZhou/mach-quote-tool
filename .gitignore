@@ -1,8 +1,9 @@
 # 依赖
 node_modules/
 
-# 本项目的构建产物（仅根目录；vendor/ 里的 dist 是公式库自带，需保留）
-/dist/
+# 本项目的构建产物。为了让普通用户 clone 后能直接双击 dist/index.html，
+# dist 不再被忽略（README 承诺「无需安装任何东西」）。构建后请一并提交。
+# （vendor/ 里的 dist 是公式库自带，同样需保留）
 
 # 备份与临时文件
 *.bak-*

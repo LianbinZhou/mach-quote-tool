@@ -5,9 +5,11 @@
  */
 import { build } from 'esbuild';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { fileURLToPath } from 'url';
 import path from 'path';
 
-const root = path.dirname(new URL(import.meta.url).pathname.replace(/^\/(\w:)/, '$1'));
+// 用 fileURLToPath 解析路径，避免 Windows 盘符 / 含空格或中文路径出错（pathname 会被百分号编码）
+const root = path.dirname(fileURLToPath(import.meta.url));
 
 const result = await build({
   entryPoints: [path.join(root, 'src', 'app.js')],

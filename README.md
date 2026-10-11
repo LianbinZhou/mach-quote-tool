@@ -17,25 +17,31 @@
 
 ### 普通用户
 
-直接双击 `dist/index.html`，浏览器打开即用，**无需联网、无需安装任何东西**。
+直接双击仓库里的 `dist/index.html`，浏览器打开即用，**无需联网、无需安装任何东西**。
+（`dist/index.html` 已随仓库提交，不需要自行构建。）
 
 ### 开发者
 
 ```bash
-npm install          # 安装构建工具（esbuild）
+npm install          # 安装构建/测试工具（esbuild、jsdom）
 npm run build        # 构建，产物在 dist/index.html
+npm test             # 纯函数单测：断言与公式库逐分一致
+npm run test:dom     # 浏览器级冒烟测试（先构建，再用 jsdom 跑交互）
 ```
 
 ## 目录结构
 
 | 路径 | 说明 |
 |---|---|
-| `src/app.js` | 应用逻辑（界面与公式库的粘合层） |
+| `src/app.js` | 应用逻辑（状态、渲染、事件绑定，界面与公式库的粘合层） |
+| `src/calc.js` | 纯计算模块（与 DOM 解耦，默认路径直接调用公式库，便于测试） |
 | `src/style.css` | 样式 |
 | `index.template.html` | HTML 模板（构建时注入 JS/CSS） |
 | `build.mjs` | 构建脚本：esbuild 打包 + 内联成单文件 HTML |
+| `test/calc.test.mjs` | 纯函数单测（对照公式库，防计算结果漂移） |
+| `scripts/smoke-test.mjs` | jsdom 浏览器级冒烟测试（折叠/转义/重置等交互） |
 | `vendor/mach-calculators/` | 公式库完整拷贝（勿动，勿再分发） |
-| `dist/` | 构建产物（被 .gitignore 忽略） |
+| `dist/` | 构建产物（已提交，可直接双击使用） |
 
 ## 公式来源
 

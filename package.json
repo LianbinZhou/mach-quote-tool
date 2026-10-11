@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "start": "node build.mjs"
+    "start": "node build.mjs",
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "test:dom": "node build.mjs && node scripts/smoke-test.mjs"
   },
   "license": "MIT",
   "keywords": [
@@ -16,6 +18,7 @@
   ],
   "author": "Lianbin Zhou",
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "esbuild": "^0.28.2",
+    "jsdom": "^30.1.2"
   }
 }
