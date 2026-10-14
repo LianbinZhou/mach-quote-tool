@@ -98,3 +98,7 @@ K4 = 批量系数（0.85 ~ 2.0）
 - 若库作者后续补充了授权协议，此限制即可解除。
 
 **给库作者**：如果你看到这里，希望能为 `@usethink/mach-calculators` 补一个 LICENSE —— 这个小工具的存在完全归功于你的公式库。
+
+---
+
+[![](https://img.shields.io/badge/powered_by-dsh-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/deepseek-ai/deepseek-harness)
